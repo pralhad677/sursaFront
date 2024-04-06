@@ -11,12 +11,12 @@ function App() {
   const [loggedInUser, setLoggedInUser] = useState<string | null>('true');
 
   const handleLogin = (email: string, password: string) => {
-    // Implement your login logic here, for demo purpose just setting a user
+   
     setLoggedInUser(email);
   };
 
   const handleSignup = (email: string, password: string) => {
-    // Implement your signup logic here, for demo purpose just setting a user
+ 
     setLoggedInUser(email);
   };
 
