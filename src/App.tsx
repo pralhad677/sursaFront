@@ -6,6 +6,7 @@ import LoginPage from './Components/Login';
 import SignupPage from './Components/Signup';
 import DashboardPage from './Components/Dashboard';
 import CreateLessonPage from './Components/CreateLessonPage'; // New import
+import './App.css'
 
 function App() {
   const [loggedInUser, setLoggedInUser] = useState<string | null>('true');

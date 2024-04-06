@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './Signup.css';
+import { Link, useNavigate } from 'react-router-dom';
 
 interface SignupProps {
   handleSignup: (email: string, password: string) => void;
@@ -9,7 +10,9 @@ const Signup: React.FC<SignupProps> = ({ handleSignup }) => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [errors, setErrors] = useState<Record<string, string>>({}); // Object for error messages
-
+  const [visited, setVisited] = useState(false); // State to track if the user has visited the login page before
+  const navigate = useNavigate(); // Hook to perform navigation
+  
   const validateForm = (): boolean => {
     let isValid = true;
     const newErrors = {};
@@ -43,7 +46,10 @@ const Signup: React.FC<SignupProps> = ({ handleSignup }) => {
     console.log('email:', email);
     console.log('password:', password);
   };
-
+  if (!visited) {
+    // If not visited, set visited to true to indicate the user has visited
+    setVisited(true);
+  }
   return (
     <div className="form-container">
       <h2>Sign Up</h2>
@@ -73,6 +79,12 @@ const Signup: React.FC<SignupProps> = ({ handleSignup }) => {
           />
           {errors.password && <p className="error-message">{errors.password}</p>}
         </div>
+        {visited && (
+        <div className="signup-container">
+          <p>Already have an account?</p>
+          <Link to="/login">login</Link>
+        </div>
+      )}
         <div className="form-group">
           <button type="submit">Sign Up</button>
         </div>

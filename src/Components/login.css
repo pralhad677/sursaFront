@@ -32,4 +32,15 @@
     color: red;
     margin-bottom: 10px;
   }
+  .signup-container {
+    display: flex;
+    align-items: center;
+    /* justify-content: space-around; */
+  }
+  .signup-container p {
+    margin-right: 10px;
+  }
+  .signup-container a{
+     text-decoration: none;
+  }
   
