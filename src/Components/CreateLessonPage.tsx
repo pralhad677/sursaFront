@@ -2,19 +2,32 @@
 import React, { useContext, useState } from 'react';
 import './CreateLessonPage.css';
 import { DataContext } from '../App';
+import { postDataWithToken } from './authLessoon';
 
 const CreateLessonPage = () => {
   const [lessonTitle, setLessonTitle] = useState('');
   const [lessonContent, setLessonContent] = useState('');
-  
+    const [data,setData] = useState({lessonTitle,lessonContent})
   const handleCreateLesson = (event: React.FormEvent<HTMLFormElement>) => {
     // Implement your logic to send the lesson data to the backend
     event.preventDefault();
     console.log('Creating lesson:', lessonTitle, lessonContent);
+    setData({lessonTitle,lessonContent})
+    // setLessonContent
     // Reset form fields after creating lesson
     // setLessonTitle('');
     // setLessonContent('');
   };
+  React.useEffect(()=>{
+    if(lessonContent !=="" && lessonTitle!=="")
+    postDataWithToken(data).then(response => {
+          console.log('response',response)
+          // Handle success
+        })
+        .catch(error => {
+          console.log('error',error)
+        });;
+  },[data])
 
   return (
     <div className="container">

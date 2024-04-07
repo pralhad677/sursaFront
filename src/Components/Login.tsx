@@ -68,6 +68,9 @@ const Login: React.FC<LoginProps> = ({ handleLogin }) => {
         setAuthMessage('Unauthorized');
       } else {
         console.log('token',data)
+        if(sessionStorage.getItem('token')){
+          sessionStorage.removeItem('token')
+        }
         sessionStorage.setItem('token', data); 
         dataContext?.setData(true)
         setAuthMessage('Authenticated');
