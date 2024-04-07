@@ -1,9 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import './Signup.css';
 import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios'
 
 interface SignupProps {
   handleSignup: (email: string, password: string) => void;
+}
+interface  DataTye{
+  email:string
+  password:string
 }
 
 const Signup: React.FC<SignupProps> = ({ handleSignup }) => {
@@ -12,6 +17,7 @@ const Signup: React.FC<SignupProps> = ({ handleSignup }) => {
   const [errors, setErrors] = useState<Record<string, string>>({}); // Object for error messages
   const [visited, setVisited] = useState(false); // State to track if the user has visited the login page before
   const navigate = useNavigate(); // Hook to perform navigation
+  const [data,setData] = useState<DataTye>({email,password});
   
   const validateForm = (): boolean => {
     let isValid = true;
@@ -40,9 +46,8 @@ const Signup: React.FC<SignupProps> = ({ handleSignup }) => {
     if (!validateForm()) {
       return; // Prevent submission if there are errors
     }
-
-    // Call the signup function passed from parent component
-    handleSignup(email, password);
+ 
+    setData({email,password});
     console.log('email:', email);
     console.log('password:', password);
   };
@@ -50,6 +55,30 @@ const Signup: React.FC<SignupProps> = ({ handleSignup }) => {
     // If not visited, set visited to true to indicate the user has visited
     setVisited(true);
   }
+  // console.log('data',data)   
+  async function fetchData() {
+    console.log('useeffect') 
+    // console.log(data)
+  
+  try{
+    // https://localhost:7237/api/User/create
+      const response = await axios.post('https://localhost:7237/api/User/create',{email,password});
+      console.log('resonse',response)
+      const data = await response.data;
+      console.log('created  user',data)
+       
+    }
+    catch(error){
+      console.error('Error:', error);
+    }
+    
+  }
+ useEffect(()=>{
+  if(data.email !=="" && data.password!==""){
+
+    fetchData();
+  }
+  },[data])
   return (
     <div className="form-container">
       <h2>Sign Up</h2>

@@ -33,3 +33,19 @@
     margin-bottom: 10px;
   }
   
+
+  .signup-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    top: -15px;
+ 
+  }
+  .signup-container p {
+   
+  }
+  .signup-container a{
+     text-decoration: none;
+     margin-right: 60px;
+  }
