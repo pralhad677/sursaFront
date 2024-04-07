@@ -1,11 +1,12 @@
 // CreateLessonPage.tsx
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import './CreateLessonPage.css';
+import { DataContext } from '../App';
 
 const CreateLessonPage = () => {
   const [lessonTitle, setLessonTitle] = useState('');
   const [lessonContent, setLessonContent] = useState('');
-
+  
   const handleCreateLesson = (event: React.FormEvent<HTMLFormElement>) => {
     // Implement your logic to send the lesson data to the backend
     event.preventDefault();

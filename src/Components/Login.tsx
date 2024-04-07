@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState , createContext, useContext} from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { DataContext } from '../App';
 
 interface LoginProps {
   handleLogin: (email: string, password: string) => void;
@@ -10,7 +11,7 @@ interface DataTye {
   email: string;
   password: string;
 }
-
+ 
 const Login: React.FC<LoginProps> = ({ handleLogin }) => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -20,7 +21,8 @@ const Login: React.FC<LoginProps> = ({ handleLogin }) => {
   const [authMessage, setAuthMessage] = useState('');
 
   const navigate = useNavigate();
-
+  const dataContext = useContext(DataContext);
+ console.log('dataContext',dataContext)
   const validateForm = (): boolean => {
     let isValid = true;
     const newErrors = {};
@@ -66,7 +68,8 @@ const Login: React.FC<LoginProps> = ({ handleLogin }) => {
         setAuthMessage('Unauthorized');
       } else {
         console.log('token',data)
-        sessionStorage.setItem('token', data);
+        sessionStorage.setItem('token', data); 
+        dataContext?.setData(true)
         setAuthMessage('Authenticated');
       }
     } catch (error) {

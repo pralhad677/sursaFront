@@ -1,5 +1,5 @@
 // App.tsx
-import React, { useState } from 'react';
+import React, { createContext, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, NavLink } from 'react-router-dom';
 import HomePage from './Components/Home';
 import LoginPage from './Components/Login';
@@ -7,9 +7,16 @@ import SignupPage from './Components/Signup';
 import DashboardPage from './Components/Dashboard';
 import CreateLessonPage from './Components/CreateLessonPage'; // New import
 import './App.css'
-
+interface DataContextProps {
+  data: boolean;
+  setData: React.Dispatch<React.SetStateAction<boolean>>;
+}
+ 
+export   const DataContext = createContext<DataContextProps | undefined>(undefined);
 function App() {
   const [loggedInUser, setLoggedInUser] = useState<string | null>('true');
+  const [parentData, setParentData] = useState<boolean>(false);
+ 
 
   const handleLogin = (email: string, password: string) => {
    
@@ -24,6 +31,7 @@ function App() {
   return (
     <Router>
       <div className="App">
+      <DataContext.Provider value={{ data: parentData, setData: setParentData }}>
         <header>
           <nav className="navbar">
             <ul>
@@ -39,7 +47,7 @@ function App() {
               <li>
                 <NavLink to="/dashboard" className="nav-link">Dashboard</NavLink>
               </li>
-              {loggedInUser && ( // Only show create lesson link if user is logged in
+              {parentData && ( // Only show create lesson link if user is logged in
                 <li>
                   <NavLink to="/create-lesson" className="nav-link">Create Lesson</NavLink>
                 </li>
@@ -66,8 +74,11 @@ function App() {
             path="/create-lesson"
             element={<CreateLessonPage />} // Render create lesson component
           />
+      
         </Routes>
+        </DataContext.Provider>
       </div>
+
     </Router>
   );
 }
