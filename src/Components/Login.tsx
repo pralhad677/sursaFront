@@ -83,7 +83,13 @@ const Login: React.FC<LoginProps> = ({ handleLogin }) => {
       fetchData(data.email, data.password);
     }
   }, [data]);
-
+if(authMessage === 'Authenticated'){
+  setTimeout(() => {
+    
+    navigate('/create-lesson');
+  }, 4000);
+}
+console.log('authMessage',authMessage)
   return (
     <div className="form-container">
       <h2>Login</h2>
