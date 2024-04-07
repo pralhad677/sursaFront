@@ -8,7 +8,7 @@ interface DashboardProps {
 const Dashboard: React.FC<DashboardProps> = ({ user }) => {
   return (
     <div className="dashboard-container">
-      <h2 className="dashboard-heading">Welcome, {user}</h2>
+      <h2 className="dashboard-heading">Welcome,to dashboard </h2>
       <p className="dashboard-message">This is your dashboard.</p>
     </div>
   );    

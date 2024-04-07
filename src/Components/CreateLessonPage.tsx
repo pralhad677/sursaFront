@@ -8,6 +8,7 @@ const CreateLessonPage = () => {
   const [lessonTitle, setLessonTitle] = useState('');
   const [lessonContent, setLessonContent] = useState('');
     const [data,setData] = useState({lessonTitle,lessonContent})
+    let course:typeof data[] = [];
   const handleCreateLesson = (event: React.FormEvent<HTMLFormElement>) => {
     // Implement your logic to send the lesson data to the backend
     event.preventDefault();
@@ -22,6 +23,7 @@ const CreateLessonPage = () => {
     if(lessonContent !=="" && lessonTitle!=="")
     postDataWithToken(data).then(response => {
           console.log('response',response)
+         course.push(response as any);
           // Handle success
         })
         .catch(error => {
@@ -54,6 +56,13 @@ const CreateLessonPage = () => {
         </div>
         <button type="submit">Create Lesson</button>
       </form>
+      {
+        course.map((item,index)=>{
+          return <div key={index}>  
+          <h1>{item.lessonTitle},{item.lessonContent}</h1>
+            </div>
+        })
+      }
     </div>
   );
 };

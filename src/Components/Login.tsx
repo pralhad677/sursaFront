@@ -19,7 +19,7 @@ const Login: React.FC<LoginProps> = ({ handleLogin }) => {
   const [visited, setVisited] = useState(false);
   const [data, setData] = useState<DataTye>({ email: '', password: '' });
   const [authMessage, setAuthMessage] = useState('');
-
+  
   const navigate = useNavigate();
   const dataContext = useContext(DataContext);
  console.log('dataContext',dataContext)
@@ -63,6 +63,7 @@ const Login: React.FC<LoginProps> = ({ handleLogin }) => {
     try {
       const response = await axios.post('https://localhost:7237/api/User/login', { email, password });
       const data: string = await response.data;
+   
       
       if (data.startsWith("unA")) {
         setAuthMessage('Unauthorized');
